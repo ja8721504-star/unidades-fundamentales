@@ -1,0 +1,106 @@
+def unidades():
+    
+    print("Unidades  (Internacional e Imperiales):")
+    print("  - Longitud: mm, cm, m, km, in (pulgadas), ft (pies), yd (yardas), mi (millas)")
+    print("  - Masa: mg, g, kg, oz (onzas), lb (libras)")
+    print("  - Tiempo: ms, s, min (minutos), h (horas)")
+    
+    try:
+        valor = float(input("\nIngresa el valor numérico: "))
+    except ValueError:
+        print("Error: Debes ingresar un número válido.")
+        return
+
+    unidad = input("Ingresa la unidad de origen (ej: yd, in, cm, m, lb, kg): ").strip().lower()
+
+    if unidad in ["mm", "cm", "m", "km", "in", "ft", "yd", "mi"]:
+        magnitud = "longitud"
+        # Convertir origen a metros
+        if unidad == "mm":
+            base = valor / 1000.0
+        elif unidad == "cm":
+            base = valor / 100.0
+        elif unidad == "m":
+            base = valor
+        elif unidad == "km":
+            base = valor * 1000.0
+        elif unidad == "in":
+            base = valor / 39.3701
+        elif unidad == "ft":
+            base = valor / 3.28084
+        elif unidad == "yd":
+            base = valor / 1.09361
+        elif unidad == "mi":
+            base = valor * 1609.34
+        
+        opciones = {
+            "mm": ("Milímetros (mm)", base * 1000.0),
+            "cm": ("Centímetros (cm)", base * 100.0),
+            "m": ("Metros (m)", base),
+            "km": ("Kilómetros (km)", base / 1000.0),
+            "in": ("Pulgadas (in)", base * 39.3701),
+            "ft": ("Pies (ft)", base * 3.28084),
+            "yd": ("Yardas (yd)", base * 1.09361),
+            "mi": ("Millas (mi)", base / 1609.34)
+        }
+
+    elif unidad in ["mg", "g", "kg", "oz", "lb"]:
+        magnitud = "masa"
+        # Convertir origen a gramos
+        if unidad == "mg":
+            base = valor / 1000.0
+        elif unidad == "g":
+            base = valor
+        elif unidad== "kg":
+            base = valor * 1000.0
+        elif unidad == "oz":
+            base = valor * 28.3495
+        elif unidad == "lb":
+            base = valor * 453.592
+
+        opciones = {
+            "mg": ("Miligramos (mg)", base * 1000.0),
+            "g": ("Gramos (g)", base),
+            "kg": ("Kilogramos (kg)", base / 1000.0),
+            "oz": ("Onzas (oz)", base / 28.3495),
+            "lb": ("Libras (lb)", base / 453.592)
+        }
+
+    elif unidad in ["ms", "s", "min", "h"]:
+        magnitud = "tiempo"
+        if unidad == "ms":
+            base = valor / 1000.0
+        elif unidad == "s":
+            base = valor
+        elif unidad == "min":
+            base = valor * 60.0
+        elif unidad == "h":
+            base = valor * 3600.0
+
+        opciones = {
+            "ms": ("Milisegundos (ms)", base * 1000.0),
+            "s": ("Segundos (s)", base),
+            "min": ("Minutos (min)", base / 60.0),
+            "h": ("Horas (h)", base / 3600.0)
+        }
+    else:
+        print("Error")
+        return
+
+
+    print(f"\nUnidades de destino disponibles para {magnitud}:")
+    for codigo, info in opciones.items():
+        if codigo != unidad:
+            print(f"  - {codigo} : {info[0]}")
+
+    unidad2 = input("\nIngresa la unidad a la que deseas convertir: ").strip().lower()
+
+   
+    if unidad2 in opciones and unidad2 != unidad:
+        nombredestino, valorconvertido = opciones[unidad2]
+        print(f"\nResultado: {valor} {unidad} equivalen a {valorconvertido:.6f} {nombredestino}")
+    else:
+        print("Error")
+
+if __name__ == "__main__":
+    unidades()
